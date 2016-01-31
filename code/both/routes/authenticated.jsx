@@ -1,11 +1,3 @@
-/*
-** both/routes/authenticated.jsx
-**
-** Routes that are visible only to logged in users.
-**
-** https://themeteorchef.com/recipes/building-a-blog-with-react
-*/
-
 const authenticatedRoutes = FlowRouter.group({
   name: 'authenticated'
 });

@@ -1,12 +1,3 @@
-/*
-** both/routes/public.jsx
-**
-** Routes that are visible to users before they log in or to anonymous
-** visitors.
-**
-** https://themeteorchef.com/recipes/building-a-blog-with-react
-*/
-
 const publicRoutes = FlowRouter.group({
   name: 'public'
 });

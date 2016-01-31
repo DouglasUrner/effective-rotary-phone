@@ -4,6 +4,8 @@
 ** https://themeteorchef.com/recipes/building-a-blog-with-react
 */
 
+//import App from '/client/components/layout/app.jsx';
+
 FlowRouter.notFound = {
   name: 'notFound',
   action() {
