@@ -4,6 +4,32 @@
 ** Manage user accounts.
 */
 
+/*
+ * Log user login / logout events.
+ *
+ * Depends on: mizzao:user-status
+ */
+
+Meteor.users.find({ 'status.online': true }).observe({
+  added: (user) => {
+    // User just came on line.
+    logger( 'info', 'login:', guessWho(user) );
+  },
+
+  removed: (user) => {
+    // User just logged out / disconnected.
+    logger( 'info', 'logout:', guessWho(user) );
+  }
+});
+
+function guessWho(u) {
+  let who = `${u.profile.name.first} ${u.profile.name.last}`;
+  who += ` <${u.emails[0].address}> (${u.roles.toString()})`;
+  who += ` ${u.status.lastLogin.ipAddr}`;
+
+  return who;
+}
+
 Accounts.validateNewUser( function (u) {
 
   // Validate source of Google accounts. We only want accounts associated with
