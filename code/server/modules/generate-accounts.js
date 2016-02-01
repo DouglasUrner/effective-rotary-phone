@@ -1,17 +1,8 @@
-let admin = [
-  {
-    name: { first: 'Douglas', last: 'Urner' },
-    email: 'dlu@canishe.com',
-    password: Meteor.settings.DLU_password
-  },
-  {
-    name: { first: 'Gaelan', last: 'Steele' },
-    email: 'gbs@canishe.com',
-    password: Meteor.settings.GBS_password
-  },
-];
+
+let admin = Meteor.settings.adminUsers;
 
 let generateAccounts = () => {
+
   let initialUsers = 0;
   let usersExist = _checkIfAccountsExist( admin.length + initialUsers );
 
