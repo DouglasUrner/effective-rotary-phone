@@ -45,14 +45,12 @@ Login = React.createClass({
     event.preventDefault();
     Meteor.loginWithGoogle( {requestPermissions: ['email']}, ( error ) => {
       if ( error ) {
-        console.log( 'Google login:', error.reason );
+        logger( 'Google login:', error.reason );
         Bert.alert( error.reason, 'danger' );
       } else {
         Bert.alert( 'Logged in!', 'success' );
       }
     });
-
-    console.log('Google!');
   },
   render() {
     let passwordLabelLink = {

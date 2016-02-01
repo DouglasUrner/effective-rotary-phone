@@ -9,7 +9,7 @@ Accounts.validateNewUser( function (u) {
   // Validate source of Google accounts. We only want accounts associated with
   // our organization.
 
-  // console.log( 'info', 'validateNewUser:', u );
+  // logger( 'info', 'validateNewUser:', u );
 
   if ( typeof u.services.google !== 'undefined' ) {
 
@@ -18,16 +18,16 @@ Accounts.validateNewUser( function (u) {
     if ( g.email.match('@g.highlineschools.org$') ) {
       return true;
     } else {
-      console.log( 'warning', 'validate: fail:', g.email );
+      logger( 'warning', 'validate: fail:', g.email );
       throw new Meteor.Error( 403, 'Please user your school Google account.' );
     }
   } else {
     if ( Meteor.users.find().count() < Meteor.settings.adminUsers.length ) {
       // Bootstrapping - first account is the administrator.
-      console.log( 'alert', 'creating first account: ', u.emails[0].address );
+      logger( 'alert', 'creating first account: ', u.emails[0].address );
       return true;
     } else {
-      console.log( 'warning', 'validate: fail:', u.emails[0].address );
+      logger( 'warning', 'validate: fail:', u.emails[0].address );
       throw new Meteor.Error( 403, 'Please user your school Google account.' );
     }
   }
@@ -35,7 +35,7 @@ Accounts.validateNewUser( function (u) {
 
 Accounts.onCreateUser( function (options, u) {
 
-  // console.log('onCreateUser', options, u);
+  // logger('onCreateUser', options, u);
 
   // u is a Meteor user object.
 
@@ -68,7 +68,7 @@ Accounts.onCreateUser( function (options, u) {
   let name = `${u.profile.name.first} ${u.profile.name.last}`;
   let email = u.emails[0].address;
   let roles = u.roles.toString();
-  console.log('info', 'created:', `'${name}' <${email}> '${roles}'` );
+  logger('info', 'created:', `'${name}' <${email}> '${roles}'` );
 
   return u;
 });
