@@ -10,14 +10,15 @@ let startup = () => {
   */
 
   Slingshot.fileRestrictions("postImages", {
-    allowedFileTypes: ["image/png", "image/jpeg", "image/gif"],
+    allowedFileTypes: ["image/png", "image/jpeg", "image/tiff"],
     maxSize: 16 * 1024 * 1024 // 16 MB (use null for unlimited).
   });
 
-  if (Meteor.isServer) {    
+  if (Meteor.isServer) {
     // Allow links to images anywhere.
-    BrowserPolicy.content.allowImageOrigin('http:');
-    BrowserPolicy.content.allowImageOrigin('https:');
+    BrowserPolicy.content.allowImageOrigin('blob:');    // Local files.
+    BrowserPolicy.content.allowImageOrigin('http:');    // Remote.
+    BrowserPolicy.content.allowImageOrigin('https:');   // Remote.
 
     Slingshot.createDirective("postImages", Slingshot.S3Storage, {
       // Bucket is auto-magic from settings.S3Bucket.

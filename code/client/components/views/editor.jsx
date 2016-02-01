@@ -73,6 +73,10 @@ Editor = React.createClass({
     console.log(this.refs.filepicker.files);
     const files = this.refs.filepicker.files;
     console.log(files[0]);
+
+    let imgTarget = document.getElementById('putImageHere');
+    imgTarget.src = URL.createObjectURL(event.target.files[0]);
+
     const uploader = new Slingshot.Upload("postImages");
 
     uploader.send(files[0], function (error, downloadUrl) {
@@ -101,7 +105,7 @@ Editor = React.createClass({
           <p className="updated-date">
             <strong>Last Updated:</strong> { this.getLastUpdate() }
           </p>
-          <img width='750'  src='https://i.ytimg.com/vi/lyVX9k__o4E/maxresdefault.jpg'/>
+          <img id='putImageHere' width='750' />
           <input type='file' ref='filepicker' onChange={this.uploadFile}/>
           <FormGroup>
             <FormControl
