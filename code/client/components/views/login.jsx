@@ -64,11 +64,20 @@ Login = React.createClass({
           <PageHeader size="h4" label="Log In" />
 
           <InfoAlert>
-            To access the demo, you can use the email address <strong>admin@admin.com</strong> and the password <strong>password</strong>.
+            <strong>To access the blog, login using your Highline Schools Google
+            account:</strong><br/><br/>
+            <em>your-student-number</em>@g.highlineschools.org
+            <br/><br/>
+            If you are unable
+            to log in your can have your password reset by sending e-mail
+            to helpdesk@highlineschools.org. Tell them your student number
+            and ask them to reset the password on your Google account.
           </InfoAlert>
 
           <PrimaryButton type='submit' label='Login with Google'
             onClick={ this.handleGoogleLogin } />
+
+          <br/><br/>
 
           <Form ref="passwordForm" id="login" className="login" validations={ this.validations() } onSubmit={ this.handleSubmit }>
             <FormGroup>
