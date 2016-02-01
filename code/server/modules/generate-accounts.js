@@ -1,28 +1,23 @@
-let administrators = [
+let admin = [
   {
-    name: { first: 'Admin', last: 'McAdmin' },
-    email: 'admin@admin.com',
-    password: 'password'
+    name: { first: 'Douglas', last: 'Urner' },
+    email: 'dlu@canishe.com',
+    password: Meteor.settings.DLU_password
   },
   {
-    name: { first: 'Joe', last: 'Buff' },
-    email: 'joe@hdbuff.com',
-    password: 'password'
+    name: { first: 'Gaelan', last: 'Steele' },
+    email: 'gbs@canishe.com',
+    password: Meteor.settings.GBS_password
   },
-  {
-    name: { first: 'Jane', last: 'Buff' },
-    email: 'jane@hdbuff.com',
-    password: 'password'
-  }
 ];
 
 let generateAccounts = () => {
-  let fakeUserCount = 5,
-      usersExist    = _checkIfAccountsExist( administrators.length + fakeUserCount );
+  let initialUsers = 0;
+  let usersExist = _checkIfAccountsExist( admin.length + initialUsers );
 
   if ( !usersExist ) {
-    _createUsers( administrators );
-    _createUsers( _generateFakeUsers( fakeUserCount ) );
+    _createUsers( admin );
+    // _createUsers( _generateInitialUsers( initialUsers ) );
   }
 };
 
@@ -56,12 +51,12 @@ let _createUser = ( user ) => {
   });
 };
 
-let _generateFakeUsers = ( count ) => {
+let _generateInitialUsers = ( count ) => {
   let users = [];
 
   for ( let i = 0; i < count; i++ ) {
     users.push({
-      name: { first: faker.name.firstName(), last: faker.name.lastName() },
+      name: { first: faker.name.firstName(), faker: user.name.lastName() },
       email: faker.internet.email(),
       password: 'password'
     });

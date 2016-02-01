@@ -7,8 +7,13 @@ AppHeader = React.createClass({
     };
   },
   render() {
-    return <NavBar id="app-header" brandLink={ this.data.brandLink } brand="HD Buff">
-      { this.props.hasUser ? <AuthenticatedNavigation user={ this.data.user } /> : <PublicNavigation /> }
-    </NavBar>;
+    return (
+      <NavBar id="app-header"  brand="MRHS Photo I/II Blog"
+        brandLink={ this.data.brandLink }>
+        { this.props.hasUser ?
+          <AuthenticatedNavigation user={ this.data.user } /> :
+          <PublicNavigation /> }
+      </NavBar>
+    );
   }
 });

@@ -21,8 +21,8 @@ PostsIndex = React.createClass({
       </Jumbotron>;
     } else {
       return <Jumbotron className="blog-header">
-        <h2>Get Buff</h2>
-        <h4>A new blog by the HD Buff crew.</h4>
+        <h2>Welcome photographers!</h2>
+        <h4>This site is for you to blog about what you are learning.</h4>
       </Jumbotron>;
     }
   },

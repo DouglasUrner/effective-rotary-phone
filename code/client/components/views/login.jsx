@@ -24,7 +24,7 @@ Login = React.createClass({
       submitHandler() {
         let { getValue } = ReactHelpers;
 
-        let form     = component.refs.loginForm.refs.form,
+        let form     = component.refs.passwordForm.refs.form,
             email    = getValue( form, '[name="emailAddress"]' ),
             password = getValue( form, '[name="password"]' );
 
@@ -41,31 +41,51 @@ Login = React.createClass({
   handleSubmit( event ) {
     event.preventDefault();
   },
+  handleGoogleLogin( event ) {
+    event.preventDefault();
+    Meteor.loginWithGoogle( {requestPermissions: ['email']}, ( error ) => {
+      if ( error ) {
+        console.log( 'Google login:', error.reason );
+        Bert.alert( error.reason, 'danger' );
+      } else {
+        Bert.alert( 'Logged in!', 'success' );
+      }
+    });
+
+    console.log('Google!');
+  },
   render() {
     let passwordLabelLink = {
       href: '/recover-password',
       label: 'Forget Password?'
     };
 
-    return <GridRow>
-      <GridColumn className="col-xs-12 col-sm-6 col-md-5 col-lg-4">
-        <PageHeader size="h4" label="Log In" />
-        <InfoAlert>
-          To access the demo, you can use the email address <strong>admin@admin.com</strong> and the password <strong>password</strong>.
-        </InfoAlert>
-        <Form ref="loginForm" id="login" className="login" validations={ this.validations() } onSubmit={ this.handleSubmit }>
-          <FormGroup>
-            <EmailInput ref="emailAddress" showLabel={ true } />
-          </FormGroup>
-          <FormGroup>
-            <PasswordInput ref="password" showLabel={ true } labelLink={ passwordLabelLink } />
-          </FormGroup>
-          <FormGroup>
-            <SuccessButton type="submit" label="Login" />
-          </FormGroup>
-        </Form>
-        <p>Don't have an account? <a href="/signup">Sign Up</a>.</p>
-      </GridColumn>
-    </GridRow>;
+    return (
+      <GridRow>
+        <GridColumn className="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+          <PageHeader size="h4" label="Log In" />
+
+          <InfoAlert>
+            To access the demo, you can use the email address <strong>admin@admin.com</strong> and the password <strong>password</strong>.
+          </InfoAlert>
+
+          <PrimaryButton type='submit' label='Login with Google'
+            onClick={ this.handleGoogleLogin } />
+
+          <Form ref="passwordForm" id="login" className="login" validations={ this.validations() } onSubmit={ this.handleSubmit }>
+            <FormGroup>
+              <EmailInput ref="emailAddress" showLabel={ true } />
+            </FormGroup>
+            <FormGroup>
+              <PasswordInput ref="password" showLabel={ true } labelLink={ passwordLabelLink } />
+            </FormGroup>
+            <FormGroup>
+              <SuccessButton type="submit" label="Login" />
+            </FormGroup>
+          </Form>
+
+        </GridColumn>
+      </GridRow>
+    );
   }
 });
