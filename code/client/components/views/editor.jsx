@@ -68,6 +68,26 @@ Editor = React.createClass({
       return post.tags.join( ', ' );
     }
   },
+  uploadFile( event ) {
+    /// XXX clean up error messages.
+    console.log(this.refs.filepicker.files);
+    const files = this.refs.filepicker.files;
+    console.log(files[0]);
+    const uploader = new Slingshot.Upload("postImages");
+
+    uploader.send(files[0], function (error, downloadUrl) {
+      if (error) {
+        logger( 'error', 'Editor:uploadFile()', error );
+        // Log service detailed response.
+        console.error('Error uploading', uploader.xhr.response);
+        alert (error);
+      }
+      else {
+        Meteor.users.update(Meteor.userId(),
+          {$push: {"profile.files": downloadUrl}});
+      }
+    });
+  },
   handleSubmit( event ) {
     event.preventDefault();
   },
@@ -81,6 +101,8 @@ Editor = React.createClass({
           <p className="updated-date">
             <strong>Last Updated:</strong> { this.getLastUpdate() }
           </p>
+          <img width='750'  src='https://i.ytimg.com/vi/lyVX9k__o4E/maxresdefault.jpg'/>
+          <input type='file' ref='filepicker' onChange={this.uploadFile}/>
           <FormGroup>
             <FormControl
               style="checkbox"
