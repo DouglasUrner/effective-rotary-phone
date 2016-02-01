@@ -87,8 +87,9 @@ Editor = React.createClass({
         alert (error);
       }
       else {
-        Meteor.users.update(Meteor.userId(),
-          {$push: {"profile.files": downloadUrl}});
+        // Meteor.users.update(Meteor.userId(),
+        //   {$push: {"profile.files": downloadUrl}});
+        logger('info', 'Editor:uploadFile(), image stored as', downloadUrl);
       }
     });
   },
