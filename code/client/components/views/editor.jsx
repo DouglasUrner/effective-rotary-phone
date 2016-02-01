@@ -70,6 +70,8 @@ Editor = React.createClass({
   },
   uploadFile( event ) {
     /// XXX clean up error messages.
+    /// XXX save downloadUrl.
+    /// XXX method to display when post if viewed.
     console.log(this.refs.filepicker.files);
     const files = this.refs.filepicker.files;
     console.log(files[0]);
