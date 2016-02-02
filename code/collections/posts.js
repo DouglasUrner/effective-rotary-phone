@@ -64,6 +64,11 @@ let PostsSchema = new SimpleSchema({
     label: "The content of this post.",
     optional: true
   },
+  "images": {
+    type: [ String ],
+    label: "The images attached to this post.",
+    optional: true
+  },
   "tags": {
     type: [ String ],
     label: "The tags for this post.",

@@ -29,12 +29,15 @@ Editor = React.createClass({
               _id: component.props.post,
               title: getValue( form, '[name="postTitle"]' ),
               slug: getValue( form, '[name="postSlug"]' ),
+              images: [ getValue( form, '[name="postImages"]' ) ],
               content: getValue( form, '[name="postContent"]' ),
               published: isChecked( form, '[name="postPublished"]' ),
               tags: getValue( form, '[name="postTags"]' ).split( ',' ).map( ( string ) => {
                 return string.trim();
               })
             };
+
+        console.log("calling savePost with:", post);
 
         Meteor.call( 'savePost', post, ( error, response ) => {
           if ( error ) {
@@ -68,6 +71,10 @@ Editor = React.createClass({
       return post.tags.join( ', ' );
     }
   },
+  getImages() {
+    let post = this.data.post;
+
+  },
   handleSubmit( event ) {
     event.preventDefault();
   },
@@ -81,7 +88,6 @@ Editor = React.createClass({
           <p className="updated-date">
             <strong>Last Updated:</strong> { this.getLastUpdate() }
           </p>
-          <ImagePicker/>
           <FormGroup>
             <FormControl
               style="checkbox"
@@ -111,6 +117,13 @@ Editor = React.createClass({
               name="postSlug"
               label="Slug"
               defaultValue={ this.data.post && this.data.post.slug }
+            />
+          </FormGroup>
+          <FormGroup>
+            <ImagePicker
+              name="postImages"
+              label="Local file name or URL"
+              defaultValue={ this.data.post && this.data.post.images }
             />
           </FormGroup>
           <FormGroup>

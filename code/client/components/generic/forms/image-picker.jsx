@@ -9,10 +9,10 @@ ImagePicker = React.createClass({
     console.log(value);
 
     if (value) {
-      console.log('upload', value);
+      console.log('got URL:', value);
       // XXX Check that we have a valid URL. Allow local filesystem path too?
       document.getElementById('putImageHere').src = value;
-      this.upload(value);
+      //this.upload(value); // Unnecessary...
     } else {
       console.log('pick');
       this.refs.invisibleFilepicker.click();
@@ -54,22 +54,11 @@ ImagePicker = React.createClass({
   },
 
   render() {
-    // if ( this.props.href ) {
-    //   return <a href={ this.props.href } className={ `btn btn-${ this.props.style }` }>
-    //     { this.props.label }
-    //   </a>;
-    // } else {
-    //   return <button
-    //     type={ this.props.type }
-    //     className={ `btn btn-${ this.props.style }` }
-    //     onClick={ this.props.onClick }
-    //   >
-    //     { this.props.label }
-    //   </button>;
-    // }
+    console.log('ImagePicker.render()', this.props);
     return (
-      <div>
-        <img id='putImageHere' width='100%' />
+      <div className="input">
+        <img id='putImageHere' width='100%'
+          src={ this.props.defaultValue }/>
 
         <div className="input-group">
           <div className="input-group-btn">
@@ -78,8 +67,10 @@ ImagePicker = React.createClass({
               onClick={this.activate}>Go!</button>
           </div>
           <input type='text' className='form-control'
+            name={ this.props.name }
             ref='imagePickerTextInput'
-            placeholder='Local file name or URL of image.'
+            placeholder={ this.props.label }
+            defaultValue={ this.props.defaultValue }
             aria-label='Upload image.' />
         </div>{/* /input-group */}
         <input type='file' ref='invisibleFilepicker'

@@ -1,7 +1,7 @@
 Post = React.createClass({
   getPostTitle() {
     let post = this.props.post;
-    
+
     if ( this.props.singlePost ) {
       return <h3>{ post.title }</h3>;
     } else {
@@ -22,6 +22,17 @@ Post = React.createClass({
       </div>;
     }
   },
+  renderImages( images ) {
+    if ( images ) {
+      return (
+        <div className="post-images">
+          {images.map( ( image ) => {
+            return <img className="post-image" src={ image.url } />;
+          })}
+        </div>
+      )
+    }
+  },
   render() {
     let { formatLastUpdate } = ReactHelpers,
         post                 = this.props.post;
@@ -30,6 +41,7 @@ Post = React.createClass({
       { this.getPostTitle() }
       <p><strong>Last Updated:</strong> { formatLastUpdate( post.updated ) } by { post.author }</p>
       { this.renderTags( post.tags ) }
+      { this.renderImages( post.images ) }
       <div className="post-body" dangerouslySetInnerHTML={ this.getHTML( post.content ) } />
     </div>;
   }
