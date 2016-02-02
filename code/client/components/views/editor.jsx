@@ -68,33 +68,6 @@ Editor = React.createClass({
       return post.tags.join( ', ' );
     }
   },
-  uploadFile( event ) {
-    /// XXX clean up error messages.
-    /// XXX save downloadUrl.
-    /// XXX method to display when post if viewed.
-    console.log(this.refs.filepicker.files);
-    const files = this.refs.filepicker.files;
-    console.log(files[0]);
-
-    let imgTarget = document.getElementById('putImageHere');
-    imgTarget.src = URL.createObjectURL(event.target.files[0]);
-
-    const uploader = new Slingshot.Upload("postImages");
-
-    uploader.send(files[0], function (error, downloadUrl) {
-      if (error) {
-        logger( 'error', 'Editor:uploadFile()', error );
-        // Log service detailed response.
-        console.error('Error uploading', uploader.xhr.response);
-        alert (error);
-      }
-      else {
-        // Meteor.users.update(Meteor.userId(),
-        //   {$push: {"profile.files": downloadUrl}});
-        logger('info', 'Editor:uploadFile(), image stored as', downloadUrl);
-      }
-    });
-  },
   handleSubmit( event ) {
     event.preventDefault();
   },
@@ -108,8 +81,7 @@ Editor = React.createClass({
           <p className="updated-date">
             <strong>Last Updated:</strong> { this.getLastUpdate() }
           </p>
-          <img id='putImageHere' width='750' />
-          <input type='file' ref='filepicker' onChange={this.uploadFile}/>
+          <ImagePicker/>
           <FormGroup>
             <FormControl
               style="checkbox"
