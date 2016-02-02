@@ -27,7 +27,7 @@ Post = React.createClass({
       return (
         <div className="post-images">
           {images.map( ( image ) => {
-            return <img className="post-image" src={ image.url } />;
+            return <img className="post-image" src={ image } />;
           })}
         </div>
       )
